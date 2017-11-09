@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>document</title>
+
+  <!--скрипт для старых браузеров IE-->
+
+ <!--[if lt IE 9]>
+     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header>
+</header>
+<div class="main">
+  <div class="center-wrapper">
+    <div class="blog-content">
+      <h1>The Road to Home</h1>
+      <div class="blog-content__date">June 18, 2015</div>
+      <p>
+        Made last it seen went no just when of by. Occasional entreaties comparison me difficulty so themselves. At brother inquiry of offices without do my service. As particular to companions at sentiments. Weather however luckily enquire so certain do. Aware did stood was day under ask. Dearest affixed enquire on explain opinion he. Reached who the mrs joy offices pleased. Towards did colonel article any parties. 
+      </p>
+      <div class="blog-content__img">
+         <img src="img/pic1.jpg" alt="pic1">
+      </div>
+      <p>
+        Needed feebly dining oh talked wisdom oppose at. Applauded use attempted strangers now are middleton concluded had. It is tried no added purse shall no on truth. Pleased anxious or as in by viewing forbade minutes prevent. Too leave had those get being led weeks blind. Had men rose from down lady able. Its son him ferrars proceed six parlors. Her say projection age announcing decisively men. Few gay sir those green men timed downs widow chief. Prevailed remainder may propriety can and.  Now for manners use has company believe parlors. Least nor party who wrote while did. 
+      </p>
+      <p>
+        We diminution preference thoroughly if. Joy deal pain view much her time. Led young gay would now state. Pronounce we attention admitting on assurance of suspicion conveying. That his west quit had met till. Of advantage he attending household at do perceived. Middleton in objection discovery as agreeable. Edward thrown dining so he my around to. 
+      </p>
+      <p>
+        Sense child do state to defer mr of forty. Become latter but nor abroad wisdom waited. Was delivered gentleman acuteness but daughters. In as of whole as match asked. Pleasure exertion put add entrance distance drawings. In equally matters showing greatly it as. Want name any wise are able park when. Saw vicinity judgment remember finished men throwing. 
+      </p>
+      <p>
+       Too leave had those get being led weeks blind. Had men rose from down lady able. Its son him ferrars proceed six parlors. Her say projection age announcing decisively men. 
+      </p>
+      <div class="blog-content__details">
+        <ul>
+          <li class="author"><i class="fa fa-user"></i>Post by <span>Will Smith</span></li>
+          <li class="date"><i class="fa fa-clock-o"></i>Posted <span>June 18, 2015</span> at <span>21:14</span></li>
+          <li class="count-comments"><i class="fa fa-comment"></i><span>12 comments</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="comments-block">
+      <h2>Leave comment</h2>
+      <div class="comments-block__add-comment flex-wrap">
+        <div class="avatar">
+          <img src="http://api.randomuser.me/portraits/thumb/men/69.jpg" alt="">
+        </div>
+        <div class="message-field">
+          <textarea class="comment-content" placeholder="Your Message" id=""/></textarea>
+          <a href="#" class="btn add">Send</a>   
+        </div>
+      </div> 
+    
+      <div class="comments-content">
+        <ul class="comments-list">
+        	<!-- generate comments-template here -->
+        </ul>
+      </div>
+      <div class="wrapper-load-btn">
+        <a href="#" class="load-more">load more comments</a>
+      </div>
+      
+      <!-- template for coments content -->
+      <template id="comments-template">
+      	<li id='{{id}}' class='comment flex-wrap' >
+          <div class="avatar">
+      		  <img src='{{author.avatar}}' alt='' />
+          </div>
+          <div class="message-field">
+            <div class="author-name">{{author.name}}</div><div class="date"><i class="fa fa-clock-o"></i>{{created_at}}</div>
+            <p>{{content}}</p>
+            <div class="btn-block">
+                <a href="#" class="edit"><i class="fa fa-pencil-square-o"></i>Edit</a>
+                <a href="#" class="delete"><i class="fa fa-times"></i>Delete</a>
+                <a href="#" class="reply"><i class="fa fa-reply"></i>Reply</a>
+            </div>
+            <div class="message-field__textarea hidden">
+              <a class="reply-name" href="#"><i class="fa fa-reply "></i>{{author.name}}</a>
+              <a class="cancel" href="#"><i class="fa fa-times "></i>Cancel</a>
+              <textarea class="comment-content" placeholder="Your Message" id=""></textarea>
+              <a href="#" class="btn">Send</a>
+            </div>
+          </div>
+          <ul class="children-list">
+          {{#children}}
+            <li class="flex-wrap clearfix">
+              <div class="avatar">
+                <img src="{{author.avatar}}" alt="" />
+              </div>
+              <div class="message-field">
+                 <div class="author-name">{{author.name}}</div><div class="date"><i class="fa fa-clock-o"></i>{{created_at}}</div>
+                 <p>{{content}}</p>
+              </div>
+            </li>
+          {{/children}}
+          </ul> 
+      	</li>
+      </template>
+
+      </div>
+    </div>
+
+    <table id="data-table">
+    	
+    </table>
+</div>
+
+<script src="http://code.jquery.com/jquery-3.2.0.min.js"></script>
+<script src='js/mustache.js'></script>
+<script src='js/main.js'></script>
+
+</body>
+</html>
