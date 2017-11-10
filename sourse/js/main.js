@@ -256,9 +256,9 @@ $(document).ready(function(){
 window.onload = function(){
 	
 	function DataTable(param){
-
-		this.table = document.getElementById(param.block)
-
+		this.blockTable = document.getElementById(param.block);
+		this.flag = true;
+		this.table = document.createElement('table');
 	}
 
 	DataTable.prototype = {
@@ -271,20 +271,28 @@ window.onload = function(){
 
 		load : function(){
 
-			var xhr = new XMLHttpRequest();
+			var self = this,
+				data = null,
+				xhr = new XMLHttpRequest();
+
 			xhr.open('GET', '/js/MOCK_DATA.json');
 			xhr.onload = function() {
 			    if (xhr.status === 200) {
 
-			    	var data = JSON.parse(xhr.responseText)
-			    	// console.log(data)
+			    	data = JSON.parse(xhr.responseText)
 
-			    	data.forEach(function(el, i){
-			    		console.log(el['First Name'])
-			    		// console.log(el['ID'])
+			    	data.forEach(function(obj, i){
+			    		if(self.flag){
+			    			self.createTableElements.apply(self, [obj, 'th', true])
+			    			self.flag = false
+			    		}
+			    	});
+
+			    	data.forEach(function(obj, i){
+			    		self.createTableElements.apply(self, [obj, 'td'])
 			    	})
-			        
-			        // console.log(xhr.responseText)
+
+			    	self.blockTable.append(self.table)	  
 			    }
 			    else {
 			       console.log('Request failed.  Returned status of ' + xhr.status);
@@ -292,15 +300,30 @@ window.onload = function(){
 			};
 			xhr.send();
 
-				
-			var table = document.createElement('table'),
-			    tr = table.appendChild(document.createElement('tbody'))
-			              .appendChild(document.createElement('tr'));
-			for (var i = 1; i < 1000; i++) {
-			    tr.appendChild(document.createElement('td'));
-			}
+		},
 
-		}
+		createTableElements : function(obj, cell, isTitle){
+			var	tr = '',
+				td = '',
+				th = '',
+				text = '';
+				dataText = '';
+			if(this.table.getElementsByTagName('tbody').length < 1){
+				this.table.appendChild(document.createElement('tbody'));
+			}
+			tr = document.createElement('tr');
+			for(key in obj){
+				td = document.createElement(cell)
+				if(isTitle){
+				  text = key
+				}else{
+				  text = obj[key]
+				}
+				dataText = document.createTextNode(text)
+				td.appendChild(dataText)
+				this.table.lastChild.appendChild(tr).appendChild(td);
+			}
+		},
 
 	}
 
