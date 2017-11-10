@@ -292,6 +292,14 @@ window.onload = function(){
 			};
 			xhr.send();
 
+				
+			var table = document.createElement('table'),
+			    tr = table.appendChild(document.createElement('tbody'))
+			              .appendChild(document.createElement('tr'));
+			for (var i = 1; i < 1000; i++) {
+			    tr.appendChild(document.createElement('td'));
+			}
+
 		}
 
 	}
