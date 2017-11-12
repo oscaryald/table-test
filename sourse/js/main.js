@@ -97,6 +97,7 @@ window.onload = function(){
 		},
 
 		removeClases : function(block, sublingElement, className){
+			console.log(sublingElement)
 		    for (var i = 0; i < block.getElementsByTagName(sublingElement).length; i++){
 		      	block.getElementsByTagName(sublingElement)[i].classList.remove(className)
 		    }
@@ -151,6 +152,40 @@ window.onload = function(){
 		block: 'data-table'
 	});
 	dataTable.init()
+
+	function Accordion(param){
+		this.block = document.querySelector(param.block);
+
+	}
+
+	Accordion.prototype = {
+
+		constructor: Accordion,
+
+		init : function(){
+			this.open()
+		},
+
+		open : function(){
+			var self  = this
+
+			this.block.addEventListener('click', function(e){
+				e.preventDefault();
+				if(!e.target.classList.contains('accodion__link')) return;
+
+				if(e.target.classList.contains('open')){
+			      	e.target.classList.remove('open');
+			    }else{
+			    	DataTable.prototype.removeClases.apply(this, [self.block, e.target.tagName, 'open'])
+			      	e.target.classList.add('open');
+			    }
+			})
+		}
+	}
+	accordion = new Accordion({
+		block: '.accordion'
+	})
+	accordion.init()
 
 }
 
