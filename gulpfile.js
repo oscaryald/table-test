@@ -89,8 +89,8 @@ gulp.task('serve', function() {
 
 // // Run all Gulp tasks and serve application
 gulp.task('dev', ['serve'], function() {
-  gulp.watch('source/sass/**/*.scss', ['styles']);
-  gulp.watch('source/*.html', browserSync.reload);
-  gulp.watch('source/js/*.js', browserSync.reload);
-  gulp.watch('source/**/*.*', ['assets']);
+  gulp.watch('sourse/sass/**/*.scss', ['styles']);
+  gulp.watch('sourse/*.html', browserSync.reload);
+  gulp.watch('sourse/js/*.js', browserSync.reload);
+  // gulp.watch('sourse/**/*.*', ['assets']);
 });
