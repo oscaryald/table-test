@@ -37,9 +37,7 @@ window.onload = function(){
 			    	data.forEach(function(obj, i){
 			    		self.createTableElements.apply(self, [obj, 'td'])
 			    	})
-
 			    	self.blockTable.append(self.table);
-
 			    	self.sortTable()	  
 			    }
 			    else {
@@ -75,6 +73,7 @@ window.onload = function(){
 
 				  switch(key.toLowerCase()) {
   					case 'avatar'.toLowerCase():
+
   						if(obj[key] !== null) {
   							dataText = '<img src="'+obj[key]+'"/>'
   						}else{
@@ -97,7 +96,14 @@ window.onload = function(){
 			}
 		},
 
+		removeClases : function(block, sublingElement, className){
+		    for (var i = 0; i < block.getElementsByTagName(sublingElement).length; i++){
+		      	block.getElementsByTagName(sublingElement)[i].classList.remove(className)
+		    }
+		},
+
 		sortTable : function(){
+			var self = this;
 			var table = document.querySelector('#'+this.block+' table');
 
 		    table.onclick = function(e) {
@@ -121,18 +127,12 @@ window.onload = function(){
 					return 0;
 		      };
 
-		      function removeClases(cell, className){
-		      	for (var i = 0; i < table.getElementsByTagName(cell).length; i++){
-		      		table.getElementsByTagName(cell)[i].classList.remove(className)
-		      	}
-		      }
-
 		      if(e.target.classList.contains('reverse')){
 		      	rowsArray.sort(compare).reverse();
 		      	e.target.classList.remove('reverse');
 		      }else{
 		      	rowsArray.sort(compare);
-		      	removeClases(e.target.tagName, 'reverse');
+		      	DataTable.prototype.removeClases.apply(this, [table, e.target.tagName, 'reverse'])
 		      	e.target.classList.add('reverse');
 		      }
 		      
