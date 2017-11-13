@@ -23,12 +23,12 @@ var clean = require('gulp-clean');
 
 // // Task to compile Sass file into CSS, and minify CSS into build directory
 gulp.task('styles', function() {
-  gulp.src('./source/sass/styles.scss')
+  gulp.src('./sourse/sass/styles.scss')
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('./source/css'))
+    .pipe(gulp.dest('./sourse/css'))
     // .pipe(minifyCSS())
     .pipe(gulp.dest('./build/css'))
     .pipe(browserSync.reload({
@@ -62,11 +62,11 @@ gulp.task('styles', function() {
 // });
 
 gulp.task('assets', function(){
-   return gulp.src('source/**')
+   return gulp.src('sourse/**')
     .pipe(newer('build'))
-    .on('data', function(file){
-      console.log(file)
-    })
+    // .on('data', function(file){
+    //   console.log(file)
+    // })
     .pipe(gulp.dest('build'));
 });
 
@@ -81,16 +81,18 @@ gulp.task('build', gulpSequence('cleanAll', ['assets', 'styles']));
 gulp.task('serve', function() {
   browserSync.init({
     server: {
-      baseDir: './sourse',
+      baseDir: 'sourse',
     },
   });
 });
 
 
 // // Run all Gulp tasks and serve application
-gulp.task('dev', ['serve', 'build'], function() {
+gulp.task('dev', ['build', 'serve'], function() {
   gulp.watch('sourse/sass/*.scss', ['styles']);
   gulp.watch('sourse/*.html', browserSync.reload);
   gulp.watch('sourse/js/*.js', browserSync.reload);
   gulp.watch('sourse/**/*.*', ['assets']);
 });
+
+
