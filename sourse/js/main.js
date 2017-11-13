@@ -155,6 +155,7 @@ window.onload = function(){
 
 	function Accordion(param){
 		this.block = document.querySelector(param.block);
+		this.link = param.link;
 
 	}
 
@@ -172,7 +173,7 @@ window.onload = function(){
 			this.block.addEventListener('click', function(e){
 				e.stopPropagation();
 				e.preventDefault();
-				if(!e.target.classList.contains('accodion__link')) return;
+				if(!e.target.classList.contains(self.link)) return;
 
 				if(e.target.classList.contains('open')){
 			      	e.target.classList.remove('open');
@@ -184,7 +185,8 @@ window.onload = function(){
 		}
 	}
 	accordion = new Accordion({
-		block: '.accordion'
+		block: '.accordion',
+		link: 'accodion__link'
 	})
 	accordion.init()
 
