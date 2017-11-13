@@ -1,5 +1,11 @@
 
 window.onload = function(){
+
+	function removeClases(block, sublingElement, className){
+		for (var i = 0; i < block.getElementsByTagName(sublingElement).length; i++){
+		    block.getElementsByTagName(sublingElement)[i].classList.remove(className)
+		}
+	}
 	
 	function DataTable(param){
 		this.block = param.block;
@@ -96,12 +102,7 @@ window.onload = function(){
 			}
 		},
 
-		removeClases : function(block, sublingElement, className){
-			console.log(sublingElement)
-		    for (var i = 0; i < block.getElementsByTagName(sublingElement).length; i++){
-		      	block.getElementsByTagName(sublingElement)[i].classList.remove(className)
-		    }
-		},
+		
 
 		sortTable : function(){
 			var self = this;
@@ -133,7 +134,7 @@ window.onload = function(){
 		      	e.target.classList.remove('reverse');
 		      }else{
 		      	rowsArray.sort(compare);
-		      	DataTable.prototype.removeClases.apply(this, [table, e.target.tagName, 'reverse'])
+		      	removeClases(table, e.target.tagName, 'reverse')
 		      	e.target.classList.add('reverse');
 		      }
 		      
@@ -168,27 +169,57 @@ window.onload = function(){
 		},
 
 		open : function(){
-			var self  = this
+			var self  = this,
+				targetParent;
 
 			this.block.addEventListener('click', function(e){
 				e.stopPropagation();
 				e.preventDefault();
+				targetParent = e.target.parentElement;
 				if(!e.target.classList.contains(self.link)) return;
 
-				if(e.target.classList.contains('open')){
-			      	e.target.classList.remove('open');
+				if(targetParent.classList.contains('open')){
+			      	targetParent.classList.remove('open');
+			      	e.target.innerHTML = 'Click to open'
 			    }else{
-			    	DataTable.prototype.removeClases.apply(this, [self.block, e.target.tagName, 'open'])
-			      	e.target.classList.add('open');
+			      	removeClases(self.block, targetParent.tagName, 'open')
+			      	targetParent.classList.add('open');
+			      	e.target.innerHTML = 'Click to close'
 			    }
 			})
 		}
 	}
 	accordion = new Accordion({
 		block: '.accordion',
-		link: 'accodion__link'
+		link: 'accordion__link'
 	})
-	accordion.init()
+	accordion.init();
+
+	function Menu(param){
+		Accordion.apply(this, arguments);
+	}
+
+	Menu.prototype = {
+
+		constructor: Menu,
+
+		init : function(){
+			this.open()
+		},
+
+		open : function(){
+			this.block.addEventListener('mouseenter', function(e){
+			    this.classList.add('open');    
+			});
+			this.block.addEventListener("mouseleave", function () {
+			    this.classList.remove('open');
+			});
+		}
+	}
+	menu = new Menu({
+		block: '.main-menu__item.sub',
+	})
+	menu.init()
 
 }
 
