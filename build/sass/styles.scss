@@ -27,21 +27,15 @@ body {
   line-height:1.5;
   font-size:12px;
   font-weight: 500;
-  min-width: 480px;
+  min-width: 800px;
   background: #fff;
 }
-h1,h2,h3,h4,h5{
+h1,h2,h3,h4,h5,p{
 	margin-bottom: 15px;
 }
 h1{
-  font-size:48px;
-  font-family:$font-stack-title;
-}
-h2{
-	font-size: 30px;
-}
-p{
-	margin-bottom: 15px;
+	font-size:48px;
+	font-family:$font-stack-title;
 }
 a{
 	text-decoration: none;
@@ -55,8 +49,6 @@ a{
 }
 .center-wrapper{
 	margin:0 auto;
-	padding: 0px 10px;
-	min-width: 800px;
 	max-width: 1280px;
 }
 .flex-wrapper{
@@ -66,21 +58,21 @@ a{
 .logo__title{
 	position: fixed;
 	left: 0;
-	top:10%;
-	font-size:33px;
+	top:79px;
+	font-size:30px;
   	font-family:$font-stack-title;
   	z-index: 2;
   	background: #910000;
-  	padding: 10px;
+  	padding: 7px;
   	word-wrap: break-word;
   	color:#fff;
   	text-transform: uppercase;
-  	width: 40px;
+  	width: 32px;
 }
 .header{
 
 	margin:10px auto;
-
+	
 	*{
 		transition:$transit;
 	}
@@ -89,31 +81,15 @@ a{
 		background: $grey;
 		min-height: 100px;
 		width: 100%;
-		align-items:flex-end;
-		justify-content:space-between;
+		position: relative;
 		padding: 10px;
 	}
 }
-
 .main-menu{
-	position: relative;
-	top: 10px;
 	margin-left: 2px;
-
-	&__item{
-		display: inline-block;
-		position: relative;
-		font-size: 14px;
-		margin-left: -2px;
-		z-index: 1;
-		padding: 5px 25px;
-		background: $dark-grey;
-		transition:none;
-
-		&:last-child{
-			margin-left: -1px;
-		}
-	}
+	position: absolute;
+	bottom: 0;
+	display: inline-block;
 
 	&__submenu{
 		display: none;
@@ -123,6 +99,7 @@ a{
 		background: $black;
 		width: 150px;
 		padding:5px 10px;
+		font-size: 12px;
 
 
 		&-link{
@@ -139,13 +116,51 @@ a{
 		}
 		
 	}
-	&__item:hover{
-		background: $black;
-	}
-	&__item.open{
-		background: $black;
-		.main-menu__submenu{
-			display: block;
+
+	&__item{
+		display: inline-block;
+		position: relative;
+		font-size: 14px;
+		margin-left: -2px;
+		z-index: 1;
+		padding: 5px 25px;
+		background: $dark-grey;
+		transition:none;
+
+		&:last-child{
+			margin-left: -1px;
+		}
+
+		&:hover{
+			background: $black;
+		}
+
+		&.sub{
+			&:after{
+				content:'';
+				display: block;
+				position: absolute;
+				right: 10px;
+				top: 13px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 3.5px 0 3.5px 5px;
+				border-color: transparent transparent transparent #fff;
+				transform:0;
+			}
+		}
+
+		&.open{
+			background: $black;
+
+			.main-menu__submenu{
+				display: block;
+			}
+
+			&:after{
+				transform:rotateZ(90deg);
+			}
 		}
 	}
 
@@ -155,8 +170,11 @@ a{
 		text-align: center;
 	}
 }
-
 .flags{
+	position: absolute;
+	bottom: 10px;
+	display: inline-block;
+	right: 10px;
 
 	&__item{
 		display: inline-block;
@@ -166,9 +184,8 @@ a{
 		&:hover{
 			opacity: 1;
 		}
-
-
 	}
+
 	&__item_selected{
 		opacity: 1;
 	}
@@ -184,7 +201,6 @@ a{
 		display: block;
 	}
 }
-
 .left-column{
 	background: $grey;
 	width: 70%;
@@ -230,6 +246,16 @@ a{
 		text-align: center;
 	}
 
+	th{
+		background: $black;
+		cursor: pointer;
+		transition:$transit;
+
+		&:hover{
+			background: #a3a3a3
+		}
+	}
+
 	th,
 	td{
 		padding: 10px;
@@ -245,7 +271,6 @@ a{
 }
 .accordion{
 
-	padding: 5px 0;
 	background: $black;
 
 	&__content{
@@ -255,10 +280,25 @@ a{
 
 	&__item{
 		border-bottom: 1px solid #fff;
-		padding: 5px 10px;
+		padding: 10px 10px;
+		position: relative;
 
 		&:last-child{
 			border-bottom: none;
+		}
+
+		&:after{
+			content:'';
+			display: block;
+			position: absolute;
+			right: 10px;
+			top: 16px;
+			width: 0;
+			height: 0;
+			border-style: solid;
+			border-width: 3.5px 0 3.5px 5px;
+			border-color: transparent transparent transparent #fff;
+			transform:0;
 		}
 
 		&.open{
@@ -266,6 +306,10 @@ a{
 			.accordion__content{
 				display: block;
 			}
+			&:after{
+				transform:rotateZ(90deg);
+			}
+
 		}
 	}
 
@@ -273,15 +317,35 @@ a{
 		display: block;
 	}
 }
+.footer{
 
+	&__content{
+		padding: 10px;
+		background:$grey;
+		margin: 10px auto;
+		justify-content:space-between;
+		color:#515151;
+		font-size: 14px;
+	}
 
+	&-menu{
 
+		&__item{
+			display: inline-block;
+		}
 
+		&__link{
+			text-decoration: underline;
+			color:#515151;
+			margin-left: 10px;
 
-
-@media (max-width: 767px){
-	
+			&:hover{
+				text-decoration: none;
+			}
+		}
+	}
 }
+
 
 
 
