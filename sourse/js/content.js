@@ -22,7 +22,64 @@ window.onload = function(){
 
 		init: function(){
 			this.load()
+			this.loadWithCount()
 			
+		},
+		loadWithCount : function(){
+			var self = this,
+				data = null,
+				xhr = new XMLHttpRequest();
+			xhr.open('GET', '/js/MOCK_DATA.json');
+
+			var count = 2;
+			var but = document.getElementById('but');
+			var arrs = []
+			var arrItems = []
+
+			xhr.onload = function loadContent(){
+				
+					if (xhr.status === 200) {
+				    	data = JSON.parse(xhr.responseText)
+
+				    	var start = arrs.length
+
+				    	data.forEach(function(obj, i){
+
+				    		if(i < count){
+
+				    			console.log(start, count)
+
+				    			arrItems = data.slice(start, count);
+
+				    			return
+				    		}
+				    		
+				    	});
+
+				    	// for(var i = 0; i < arrItems.length; i++){ ///// don't delete !
+				    	// 	arrs.push(arrItems[i])
+				    	// }
+
+				    	arrs = arrs.concat(arrItems)
+
+				    	console.log(arrs)
+
+				    	self.blockTable.appendChild(self.table);
+				    	self.sortTable()	  
+				    }else{
+				       console.log('Request failed.  Returned status of ' + xhr.status);
+				    }
+
+			};
+
+			but.addEventListener('click', function add(e){
+			    e.preventDefault()
+			    var ajaxRun = xhr.onload;
+			    count +=2
+			    ajaxRun()
+			});
+
+			xhr.send();
 		},
 
 		load : function(){
