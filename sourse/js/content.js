@@ -14,6 +14,8 @@ window.onload = function(){
 		this.block = param.block;
 		this.blockTable = document.getElementById(param.block);
 		this.table = document.createElement('table');
+		this.loadCounter = param.loadCounter;
+		this.addMoreCount = param.addMoreCount;
 	}
 
 	DataTable.prototype = {
@@ -21,48 +23,46 @@ window.onload = function(){
 		constructor: DataTable,
 
 		init: function(){
-			this.load()
+			// this.load()
 			this.loadWithCount()
 			
 		},
+
 		loadWithCount : function(){
 			var self = this,
 				data = null,
 				xhr = new XMLHttpRequest();
 			xhr.open('GET', '/js/MOCK_DATA.json');
 
-			var count = 2;
-			var but = document.getElementById('but');
-			var arrs = []
-			var arrItems = []
+			var count = 2,
+				but = document.getElementById('but'),
+				arrItems = [],
+				countArrayLength = [];
 
-			xhr.onload = function loadContent(){
+			xhr.onload = function(){
 				
 					if (xhr.status === 200) {
 				    	data = JSON.parse(xhr.responseText)
-
-				    	var start = arrs.length
-
 				    	data.forEach(function(obj, i){
-
-				    		if(i < count){
-
-				    			console.log(start, count)
-
-				    			arrItems = data.slice(start, count);
-
+				    		if(i < self.loadCounter){
+				    			if(i < 1 && countArrayLength == 0){
+					    			self.createTableElements.apply(self, [obj, 'th', true])
+					    			return
+					    		}
+				    			arrItems = data.slice(countArrayLength.length, self.loadCounter);
 				    			return
 				    		}
-				    		
 				    	});
 
 				    	// for(var i = 0; i < arrItems.length; i++){ ///// don't delete !
-				    	// 	arrs.push(arrItems[i])
+				    	// 	countArrayLength.push(arrItems[i]);
 				    	// }
 
-				    	arrs = arrs.concat(arrItems)
+				    	countArrayLength = countArrayLength.concat(arrItems);
 
-				    	console.log(arrs)
+				    	for(var i = 0; i < arrItems.length; i++){ 
+				   			self.createTableElements.apply(self, [arrItems[i], 'td'])
+				    	}
 
 				    	self.blockTable.appendChild(self.table);
 				    	self.sortTable()	  
@@ -75,7 +75,7 @@ window.onload = function(){
 			but.addEventListener('click', function add(e){
 			    e.preventDefault()
 			    var ajaxRun = xhr.onload;
-			    count +=2
+			    self.loadCounter += self.addMoreCount;
 			    ajaxRun()
 			});
 
@@ -129,7 +129,6 @@ window.onload = function(){
 				  dataText = obj[key];
 				  switch(key.toLowerCase()) {
   					case 'avatar'.toLowerCase():
-
   						if(obj[key] !== null) {
   							dataText = '<img src="'+obj[key]+'"/>'
   						}else{
@@ -286,7 +285,9 @@ window.onload = function(){
 	}
 
 	var dataTable = new DataTable({
-		block: 'data-table'
+		block: 'data-table',
+		loadCounter : 5,
+		addMoreCount: 5
 	});
 	dataTable.init();
 

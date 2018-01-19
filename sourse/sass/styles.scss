@@ -345,6 +345,17 @@ a{
 		}
 	}
 }
+.load-more-but{
+	text-transform: uppercase;
+	background: #333;
+	padding: 3px 10px;
+	margin: 20px auto;
+	display: inline-block;
+
+	&:hover{
+		background: #555;
+	}
+}
 
 
 
